@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PetaGuía – Todo sobre tus mascotas</title>
+  <meta name="description" content="Guías, consejos y cuidados para perros, gatos, aves, reptiles y mascotas exóticas. Información confiable para dueños apasionados." />
+  <meta name="keywords" content="mascotas, perros, gatos, cuidado de animales, salud mascotas, razas, alimentación" />
+  <meta property="og:title" content="PetaGuía – Todo sobre tus mascotas" />
+  <meta property="og:description" content="Guías, consejos y cuidados para perros, gatos, aves, reptiles y mascotas exóticas." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Google AdSense placeholder — reemplazar con tu Publisher ID -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
+  <style>
+    :root {
+      --bg: #faf7f2;
+      --surface: #ffffff;
+      --surface2: #f2ede4;
+      --ink: #1a1510;
+      --ink2: #5a5040;
+      --accent: #c8541a;
+      --accent2: #e8a44a;
+      --green: #3a7d44;
+      --border: #e0d8cc;
+      --radius: 12px;
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent2);
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--bg); }
+
+    nav { display: flex; gap: 24px; }
+    nav a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent2); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 64px 24px 72px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 0%, rgba(200,84,26,0.25) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 100%, rgba(232,164,74,0.15) 0%, transparent 50%);
+    }
+
+    .hero-content { position: relative; max-width: 700px; margin: 0 auto; }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent2);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 500px;
+      margin: 0 auto 32px;
+    }
+
+    .hero-cats {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-cat {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .hero-cat:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    /* ── AD BANNER PLACEHOLDER ── */
+    .ad-banner {
+      background: var(--surface2);
+      border: 2px dashed var(--border);
+      text-align: center;
+      padding: 20px;
+      color: var(--ink2);
+      font-size: 0.8rem;
+      margin: 0 auto;
+      max-width: 728px;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 40px;
+      padding: 48px 0;
+    }
+
+    /* ── SECTION TITLES ── */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 28px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .section-count {
+      font-size: 0.8rem;
+      color: var(--ink2);
+    }
+
+    /* ── FEATURED ARTICLE ── */
+    .featured-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-bottom: 32px;
+      background: var(--surface);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .featured-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    }
+
+    .featured-img {
+      background: linear-gradient(135deg, #c8541a22 0%, #e8a44a33 100%);
+      min-height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+    }
+
+    .featured-body {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .tag.green { background: var(--green); }
+    .tag.amber { background: var(--accent2); color: var(--ink); }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      color: var(--ink);
+    }
+
+    .card-excerpt {
+      font-size: 0.9rem;
+      color: var(--ink2);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .read-more::after { content: '→'; transition: transform 0.2s; }
+    .featured-card:hover .read-more::after { transform: translateX(4px); }
+
+    .card-meta {
+      font-size: 0.78rem;
+      color: var(--ink2);
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── ARTICLE GRID ── */
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .article-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .article-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+    }
+
+    .article-thumb {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .article-body { padding: 18px; }
+
+    .article-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .article-excerpt {
+      font-size: 0.82rem;
+      color: var(--ink2);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .article-footer {
+      padding: 10px 18px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .article-date { font-size: 0.75rem; color: var(--ink2); }
+
+    /* ── SIDEBAR ── */
+    .sidebar { display: flex; flex-direction: column; gap: 24px; }
+
+    .widget {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .widget-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    /* Categories widget */
+    .cat-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .cat-list li a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: var(--bg);
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    .cat-list li a:hover { background: var(--surface2); }
+    .cat-list li a span {
+      background: var(--border);
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 100px;
+      color: var(--ink2);
+    }
+
+    /* Popular posts */
+    .popular-list { display: flex; flex-direction: column; gap: 14px; }
+    .popular-item { display: flex; gap: 12px; align-items: flex-start; }
+    .popular-num {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--border);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 28px;
+    }
+    .popular-title {
+      font-size: 0.85rem;
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+    .popular-item:hover .popular-title { color: var(--accent); }
+
+    /* Newsletter widget */
+    .newsletter-widget {
+      background: var(--ink);
+      color: var(--bg);
+      border: none;
+    }
+    .newsletter-widget .widget-title {
+      color: var(--bg);
+      border-bottom-color: rgba(255,255,255,0.15);
+    }
+    .newsletter-widget p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 14px;
+    }
+    .newsletter-input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      margin-bottom: 10px;
+      outline: none;
+    }
+    .newsletter-input::placeholder { color: rgba(255,255,255,0.4); }
+    .newsletter-btn {
+      width: 100%;
+      padding: 10px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .newsletter-btn:hover { background: #b84515; }
+
+    /* Ad widget placeholder */
+    .ad-widget {
+      background: var(--surface2);
+      border: 2px dashed var(--border);
+      padding: 32px 16px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--ink2);
+      border-radius: var(--radius);
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,0.6);
+      padding: 40px 24px;
+      margin-top: 32px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent2);
+    }
+
+    .footer-links { display: flex; gap: 20px; font-size: 0.85rem; }
+    .footer-links a:hover { color: white; }
+    .footer-copy { font-size: 0.8rem; }
+
+    /* ── ARTICLE PAGE ── */
+    .article-page { display: none; }
+
+    .article-page.active {
+      display: block;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    .article-page h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .article-meta {
+      display: flex;
+      gap: 16px;
+      color: var(--ink2);
+      font-size: 0.85rem;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .article-content h2 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin: 32px 0 12px;
+    }
+
+    .article-content p {
+      margin-bottom: 16px;
+      line-height: 1.75;
+      color: #2a2218;
+    }
+
+    .article-content ul {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    .article-content ul li { margin-bottom: 8px; line-height: 1.6; }
+
+    /* Ad in article */
+    .in-article-ad {
+      background: var(--surface2);
+      border: 2px dashed var(--border);
+      text-align: center;
+      padding: 28px;
+      margin: 32px 0;
+      font-size: 0.8rem;
+      color: var(--ink2);
+      border-radius: var(--radius);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .main-grid { grid-template-columns: 1fr; }
+      .featured-card { grid-template-columns: 1fr; }
+      .featured-img { min-height: 160px; }
+      .articles-grid { grid-template-columns: 1fr; }
+      nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="#" onclick="showHome()" class="logo">Peta<span>Guía</span></a>
+    <nav>
+      <a href="#" onclick="filterCat('Perros')">Perros</a>
+      <a href="#" onclick="filterCat('Gatos')">Gatos</a>
+      <a href="#" onclick="filterCat('Exóticas')">Exóticas</a>
+      <a href="#" onclick="filterCat('Salud')">Salud</a>
+      <a href="#" onclick="filterCat('Alimentación')">Alimentación</a>
+    </nav>
+  </header>
+
+  <!-- HOME PAGE -->
+  <div id="home-page">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-badge">🐾 Tu guía de mascotas</span>
+        <h1>Todo lo que tu <em>mascota</em> necesita saber</h1>
+        <p>Guías expertas sobre cuidados, salud, alimentación y comportamiento para cada tipo de animal.</p>
+        <div class="hero-cats">
+          <span class="hero-cat" onclick="filterCat('Perros')">🐶 Perros</span>
+          <span class="hero-cat" onclick="filterCat('Gatos')">🐱 Gatos</span>
+          <span class="hero-cat" onclick="filterCat('Aves')">🦜 Aves</span>
+          <span class="hero-cat" onclick="filterCat('Reptiles')">🦎 Reptiles</span>
+          <span class="hero-cat" onclick="filterCat('Exóticas')">🐇 Exóticas</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- AD BANNER -->
+    <div style="padding: 16px 24px; display:flex; justify-content:center;">
+      <div class="ad-banner">
+        📢 Espacio publicitario — Google AdSense 728×90
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+      <div class="main-grid">
+
+        <!-- LEFT COLUMN -->
+        <main>
+          <div class="section-header">
+            <h2 class="section-title">Artículo destacado</h2>
+          </div>
+
+          <a href="#" class="featured-card" onclick="openArticle(0); return false;" id="featured-link">
+            <div class="featured-img" id="featured-emoji">🐶</div>
+            <div class="featured-body">
+              <span class="tag" id="featured-tag">Perros</span>
+              <h3 class="card-title" id="featured-title">Cómo enseñarle a tu perro a quedarse solo en casa sin ansiedad</h3>
+              <p class="card-excerpt" id="featured-excerpt">La separación es uno de los mayores desafíos para los perros domésticos. Descubrí técnicas probadas para que tu perro aprenda a estar solo de forma tranquila y segura.</p>
+              <span class="read-more">Leer artículo</span>
+              <div class="card-meta" id="featured-meta">📅 18 de marzo, 2026 · ⏱ 6 min de lectura</div>
+            </div>
+          </a>
+
+          <div class="section-header" style="margin-top: 40px;">
+            <h2 class="section-title">Últimos artículos</h2>
+            <span class="section-count" id="article-count">8 artículos</span>
+          </div>
+
+          <div class="articles-grid" id="articles-grid">
+            <!-- Generado dinámicamente por JS -->
+          </div>
+        </main>
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+          <!-- Ad widget -->
+          <div class="ad-widget">
+            📢 Google AdSense<br>300×250
+          </div>
+
+          <!-- Categories -->
+          <div class="widget">
+            <h3 class="widget-title">Categorías</h3>
+            <ul class="cat-list">
+              <li><a href="#" onclick="filterCat('Perros')">🐶 Perros <span id="cnt-perros">0</span></a></li>
+              <li><a href="#" onclick="filterCat('Gatos')">🐱 Gatos <span id="cnt-gatos">0</span></a></li>
+              <li><a href="#" onclick="filterCat('Aves')">🦜 Aves <span id="cnt-aves">0</span></a></li>
+              <li><a href="#" onclick="filterCat('Reptiles')">🦎 Reptiles <span id="cnt-reptiles">0</span></a></li>
+              <li><a href="#" onclick="filterCat('Exóticas')">🐇 Exóticas <span id="cnt-exoticas">0</span></a></li>
+              <li><a href="#" onclick="filterCat('Salud')">💊 Salud <span id="cnt-salud">0</span></a></li>
+              <li><a href="#" onclick="filterCat('Alimentación')">🍖 Alimentación <span id="cnt-alim">0</span></a></li>
+            </ul>
+          </div>
+
+          <!-- Popular -->
+          <div class="widget">
+            <h3 class="widget-title">Más leídos</h3>
+            <div class="popular-list" id="popular-list"></div>
+          </div>
+
+          <!-- Newsletter -->
+          <div class="widget newsletter-widget">
+            <h3 class="widget-title">🐾 Newsletter</h3>
+            <p>Recibí un artículo nuevo cada semana sobre el cuidado de tus mascotas.</p>
+            <input type="email" class="newsletter-input" placeholder="tu@email.com" />
+            <button class="newsletter-btn">Suscribirme gratis</button>
+          </div>
+
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE PAGE -->
+  <div id="article-page" class="article-page">
+    <a href="#" onclick="showHome(); return false;" style="display:inline-flex; align-items:center; gap:6px; font-size:0.875rem; color:var(--ink2); margin-bottom:24px;">← Volver al inicio</a>
+    <span class="tag" id="art-tag">Perros</span>
+    <h1 id="art-title">Título del artículo</h1>
+    <div class="article-meta">
+      <span id="art-date">📅 18 de marzo, 2026</span>
+      <span id="art-read">⏱ 6 min de lectura</span>
+      <span id="art-cat">🐶 Perros</span>
+    </div>
+
+    <!-- In-article ad -->
+    <div class="in-article-ad">📢 Google AdSense — In-article 728×90</div>
+
+    <div class="article-content" id="art-content"></div>
+
+    <!-- In-article ad 2 -->
+    <div class="in-article-ad" style="margin-top:32px;">📢 Google AdSense — In-article 300×250</div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo">PetaGuía</span>
+      <div class="footer-links">
+        <a href="#">Inicio</a>
+        <a href="#">Sobre nosotros</a>
+        <a href="#">Privacidad</a>
+        <a href="#">Contacto</a>
+      </div>
+      <span class="footer-copy">© 2026 PetaGuía. Todos los derechos reservados.</span>
+    </div>
+  </footer>
+
+  <script>
+    // ── DATOS DE ARTÍCULOS ──
+    // El script de Python reemplaza este array con los artículos reales
+    const articles = [
+      {
+        id: 0,
+        title: "Cómo enseñarle a tu perro a quedarse solo en casa sin ansiedad",
+        excerpt: "La separación es uno de los mayores desafíos para los perros domésticos. Descubrí técnicas probadas para que tu perro aprenda a estar solo de forma tranquila y segura.",
+        category: "Perros",
+        emoji: "🐶",
+        date: "18 de marzo, 2026",
+        readTime: "6",
+        featured: true,
+        content: `
+          <p>La ansiedad por separación es uno de los problemas de comportamiento más comunes en perros domésticos. Afecta aproximadamente al 20% de los perros y puede manifestarse como ladridos excesivos, destrucción de objetos o incluso problemas digestivos.</p>
+          <h2>¿Qué es la ansiedad por separación?</h2>
+          <p>Se trata de un estado de estrés que experimenta el perro cuando queda solo. A diferencia de lo que muchos creen, no es desobediencia sino una respuesta emocional genuina ante la ausencia del dueño, con quien el perro ha formado un vínculo muy fuerte.</p>
+          <h2>Señales de que tu perro la padece</h2>
+          <ul>
+            <li>Ladridos o aullidos continuos después de que te vas</li>
+            <li>Destrucción de muebles, ropa u objetos</li>
+            <li>Orina o defecación dentro de casa (aunque esté entrenado)</li>
+            <li>Intentos de escapar</li>
+            <li>Comportamiento excesivamente pegajoso cuando estás presente</li>
+          </ul>
+          <h2>Técnicas para reducir la ansiedad</h2>
+          <p><strong>1. Desensibilización gradual:</strong> Empezá saliendo por solo 30 segundos y regresando antes de que el perro se estrese. Aumentá el tiempo muy gradualmente durante semanas.</p>
+          <p><strong>2. Señales de partida neutras:</strong> Los perros aprenden a asociar acciones como tomar las llaves con tu ausencia. Practicá esas acciones sin salir para que pierdan su carga emocional.</p>
+          <p><strong>3. Juguetes de enriquecimiento:</strong> Kong relleno con comida congelada, juguetes puzzle y huesos de larga duración mantienen su mente ocupada durante tu ausencia.</p>
+          <p><strong>4. Ejercicio previo:</strong> Un perro bien ejercitado es un perro más tranquilo. Una caminata larga antes de dejarlo solo reduce considerablemente la ansiedad.</p>
+          <h2>¿Cuándo consultar a un veterinario?</h2>
+          <p>Si los síntomas son severos o no mejoran con estas técnicas, un veterinario puede descartar causas médicas y derivarte a un etólogo o entrenador certificado. En algunos casos se usan tratamientos conductuales combinados con medicación temporal.</p>
+          <p>La paciencia es fundamental. El proceso lleva semanas o meses, pero con constancia los resultados son duraderos y mejoran significativamente la calidad de vida de tu perro.</p>
+        `
+      },
+      {
+        id: 1,
+        title: "Los mejores alimentos para gatos senior: guía completa",
+        excerpt: "A partir de los 7 años, los gatos tienen necesidades nutricionales específicas. Aprende qué buscar en una dieta adecuada para tu gato mayor.",
+        category: "Gatos",
+        emoji: "🐱",
+        date: "17 de marzo, 2026",
+        readTime: "5",
+        featured: false,
+        content: `<p>Los gatos mayores de 7 años necesitan una dieta ajustada a sus cambios metabólicos. Este artículo está siendo completado automáticamente por el sistema de publicación.</p>`
+      },
+      {
+        id: 2,
+        title: "Cómo cuidar un conejo doméstico: todo lo que necesitás saber",
+        excerpt: "Los conejos son mascotas exigentes y mal comprendidas. Esta guía cubre hábitat, alimentación, socialización y salud preventiva.",
+        category: "Exóticas",
+        emoji: "🐇",
+        date: "16 de marzo, 2026",
+        readTime: "7",
+        featured: false,
+        content: `<p>Los conejos son una de las mascotas más adoptadas pero también más abandonadas. Conocer sus necesidades reales marca la diferencia.</p>`
+      },
+      {
+        id: 3,
+        title: "Señales de que tu perro podría tener problemas articulares",
+        excerpt: "La displasia de cadera y la artritis son comunes en razas grandes. Detectar los síntomas a tiempo puede cambiar completamente el pronóstico.",
+        category: "Salud",
+        emoji: "💊",
+        date: "15 de marzo, 2026",
+        readTime: "4",
+        featured: false,
+        content: `<p>Las enfermedades articulares en perros son progresivas pero manejables si se detectan a tiempo.</p>`
+      },
+      {
+        id: 4,
+        title: "Guía de alimentación para loros y cotorras",
+        excerpt: "Una dieta solo de semillas no es suficiente para las aves psitácidas. Descubrí qué deben comer para vivir décadas con buena salud.",
+        category: "Aves",
+        emoji: "🦜",
+        date: "14 de marzo, 2026",
+        readTime: "5",
+        featured: false,
+        content: `<p>Los loros necesitan una dieta variada y equilibrada para mantener su plumaje, sistema inmune y longevidad.</p>`
+      },
+      {
+        id: 5,
+        title: "Qué hace que una serpiente sea buena mascota para principiantes",
+        excerpt: "Mitos y realidades sobre tener serpientes como mascotas. Las especies más recomendadas y cómo preparar su terrario.",
+        category: "Reptiles",
+        emoji: "🐍",
+        date: "13 de marzo, 2026",
+        readTime: "6",
+        featured: false,
+        content: `<p>Las serpientes pueden ser mascotas fascinantes y de bajo mantenimiento cuando se las conoce bien.</p>`
+      },
+      {
+        id: 6,
+        title: "Cómo presentar a un gato nuevo en un hogar con perros",
+        excerpt: "La convivencia entre perros y gatos es posible con la introducción correcta. Paso a paso para una convivencia exitosa.",
+        category: "Gatos",
+        emoji: "🐱",
+        date: "12 de marzo, 2026",
+        readTime: "5",
+        featured: false,
+        content: `<p>Con paciencia y el método correcto, perros y gatos pueden vivir en armonía.</p>`
+      },
+      {
+        id: 7,
+        title: "Alimentación raw (BARF) para perros: ventajas y riesgos reales",
+        excerpt: "La dieta BARF está de moda, pero ¿es adecuada para tu perro? Analizamos la evidencia científica disponible.",
+        category: "Alimentación",
+        emoji: "🍖",
+        date: "11 de marzo, 2026",
+        readTime: "7",
+        featured: false,
+        content: `<p>La dieta BARF tiene defensores y detractores. Aquí analizamos qué dice la ciencia.</p>`
+      }
+    ];
+
+    let currentFilter = null;
+
+    // ── RENDER ──
+    function getFilteredArticles() {
+      const nonFeatured = articles.filter(a => !a.featured);
+      if (!currentFilter) return nonFeatured;
+      return nonFeatured.filter(a => a.category === currentFilter);
+    }
+
+    function renderGrid() {
+      const grid = document.getElementById('articles-grid');
+      const filtered = getFilteredArticles();
+      document.getElementById('article-count').textContent = filtered.length + ' artículos';
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '<p style="color:var(--ink2); grid-column:1/-1; padding:20px 0;">No hay artículos en esta categoría todavía.</p>';
+        return;
+      }
+
+      grid.innerHTML = filtered.map(a => `
+        <a href="#" class="article-card" onclick="openArticle(${a.id}); return false;">
+          <div class="article-thumb" style="background: linear-gradient(135deg, ${catColor(a.category)}22, ${catColor(a.category)}44)">
+            ${a.emoji}
+          </div>
+          <div class="article-body">
+            <span class="tag ${tagClass(a.category)}">${a.category}</span>
+            <h3 class="article-title">${a.title}</h3>
+            <p class="article-excerpt">${a.excerpt}</p>
+          </div>
+          <div class="article-footer">
+            <span class="article-date">📅 ${a.date}</span>
+            <span class="article-date">⏱ ${a.readTime} min</span>
+          </div>
+        </a>
+      `).join('');
+    }
+
+    function renderCounts() {
+      const cats = ['perros','gatos','aves','reptiles','exoticas','salud','alim'];
+      const names = ['Perros','Gatos','Aves','Reptiles','Exóticas','Salud','Alimentación'];
+      cats.forEach((c, i) => {
+        const el = document.getElementById('cnt-' + c);
+        if (el) el.textContent = articles.filter(a => a.category === names[i]).length;
+      });
+    }
+
+    function renderPopular() {
+      const list = document.getElementById('popular-list');
+      list.innerHTML = articles.slice(0,5).map((a,i) => `
+        <div class="popular-item" onclick="openArticle(${a.id})" style="cursor:pointer">
+          <span class="popular-num">0${i+1}</span>
+          <span class="popular-title">${a.title}</span>
+        </div>
+      `).join('');
+    }
+
+    function catColor(cat) {
+      const map = { Perros:'#c8541a', Gatos:'#6b5fb5', Aves:'#2e9e6a', Reptiles:'#4a8a3c', Exóticas:'#c49b2e', Salud:'#d04040', Alimentación:'#b06a20' };
+      return map[cat] || '#888';
+    }
+
+    function tagClass(cat) {
+      if (cat === 'Gatos' || cat === 'Aves' || cat === 'Reptiles') return 'green';
+      if (cat === 'Alimentación' || cat === 'Exóticas') return 'amber';
+      return '';
+    }
+
+    // ── NAVIGATION ──
+    function openArticle(id) {
+      const a = articles.find(x => x.id === id);
+      if (!a) return;
+      document.getElementById('home-page').style.display = 'none';
+      const ap = document.getElementById('article-page');
+      ap.classList.add('active');
+      document.getElementById('art-tag').textContent = a.category;
+      document.getElementById('art-title').textContent = a.title;
+      document.getElementById('art-date').textContent = '📅 ' + a.date;
+      document.getElementById('art-read').textContent = '⏱ ' + a.readTime + ' min de lectura';
+      document.getElementById('art-cat').textContent = a.emoji + ' ' + a.category;
+      document.getElementById('art-content').innerHTML = a.content;
+      window.scrollTo(0, 0);
+    }
+
+    function showHome() {
+      document.getElementById('home-page').style.display = 'block';
+      document.getElementById('article-page').classList.remove('active');
+      window.scrollTo(0, 0);
+    }
+
+    function filterCat(cat) {
+      currentFilter = cat;
+      showHome();
+      renderGrid();
+    }
+
+    // ── INIT ──
+    renderGrid();
+    renderCounts();
+    renderPopular();
+  </script>
+</body>
+</html>
