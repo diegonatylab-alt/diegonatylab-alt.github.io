@@ -27,6 +27,7 @@ jobs:
       - name: Generar artículo
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
         run: python generate_article.py
 
       - name: Publicar cambios en GitHub
