@@ -1,0 +1,27 @@
+name: Optimizar SEO artículos existentes
+
+on:
+  workflow_dispatch:
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install anthropic
+      - name: Optimizar SEO
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python optimize_seo.py
+      - name: Publicar cambios
+        run: |
+          git config user.name "PetsGuía Bot"
+          git config user.email "bot@petsguia.com"
+          git add index.html articulos/
+          git diff --staged --quiet || git commit -m "🔍 SEO optimizado en artículos existentes"
+          git push
