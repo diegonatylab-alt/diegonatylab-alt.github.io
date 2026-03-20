@@ -2,8 +2,12 @@
 """
 generate_article.py
 -------------------
-Genera un artículo diario sobre mascotas usando la API de Anthropic
-y lo inserta en el array `articles` del index.html del sitio.
+Genera un artículo diario sobre mascotas usando la API de Anthropic,
+busca una imagen en Unsplash y lo inserta en el index.html del sitio.
+
+Variables de entorno necesarias:
+    ANTHROPIC_API_KEY   → API key de Anthropic
+    UNSPLASH_ACCESS_KEY → Access key de Unsplash (gratuita)
 """
 
 import os
@@ -11,12 +15,15 @@ import re
 import json
 import random
 import datetime
+import urllib.request
+import urllib.parse
 import anthropic
 
 # ─── CONFIGURACIÓN ──────────────────────────────────────────────
-API_KEY = os.environ.get("ANTHROPIC_API_KEY")
-HTML_FILE = "index.html"
-MAX_ARTICLES = 60
+API_KEY         = os.environ.get("ANTHROPIC_API_KEY")
+UNSPLASH_KEY    = os.environ.get("UNSPLASH_ACCESS_KEY")
+HTML_FILE       = "index.html"
+MAX_ARTICLES    = 60
 # ────────────────────────────────────────────────────────────────
 
 CATEGORIES = [
@@ -28,6 +35,16 @@ CATEGORIES = [
     ("Salud",        "💊"),
     ("Alimentación", "🍖"),
 ]
+
+UNSPLASH_KEYWORDS = {
+    "Perros":        "dog pet",
+    "Gatos":         "cat pet",
+    "Aves":          "pet bird parrot",
+    "Reptiles":      "reptile lizard pet",
+    "Exóticas":      "exotic pet rabbit hamster",
+    "Salud":         "veterinarian pet health",
+    "Alimentación":  "pet food dog cat",
+}
 
 TOPIC_POOL = {
     "Perros": [
@@ -112,6 +129,66 @@ def pick_topic(existing_titles):
     return cat_name, emoji, topic
 
 
+def fetch_unsplash_image(cat, topic):
+    """Busca una imagen en Unsplash. Devuelve dict con url/thumb/alt/author o None."""
+    if not UNSPLASH_KEY:
+        print("UNSPLASH_ACCESS_KEY no definida, saltando imagen.")
+        return None
+
+    base_kw  = UNSPLASH_KEYWORDS.get(cat, "pet animal")
+    topic_kw = " ".join(topic.split()[:3])
+    query    = f"{base_kw} {topic_kw}"
+
+    params = urllib.parse.urlencode({
+        "query":          query,
+        "per_page":       10,
+        "orientation":    "landscape",
+        "content_filter": "high",
+    })
+    url = f"https://api.unsplash.com/search/photos?{params}"
+
+    req = urllib.request.Request(url, headers={
+        "Authorization":  f"Client-ID {UNSPLASH_KEY}",
+        "Accept-Version": "v1",
+    })
+
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = json.loads(resp.read().decode())
+        results = data.get("results", [])
+        if not results:
+            print(f"Unsplash no devolvió resultados para: {query}")
+            return None
+        photo = random.choice(results[:5])
+        return {
+            "url":        photo["urls"]["regular"],
+            "thumb":      photo["urls"]["small"],
+            "alt":        photo.get("alt_description") or query,
+            "author":     photo["user"]["name"],
+            "author_url": photo["user"]["links"]["html"],
+        }
+    except Exception as e:
+        print(f"Error al buscar imagen en Unsplash: {e}")
+        return None
+
+
+def build_image_html(image):
+    """HTML de la imagen con crédito a Unsplash (requerido por su licencia)."""
+    if not image:
+        return ""
+    return (
+        f'<figure style="margin:0 0 28px 0;">'
+        f'<img src="{image["url"]}" alt="{image["alt"]}" '
+        f'style="width:100%;border-radius:10px;max-height:420px;object-fit:cover;" loading="lazy"/>'
+        f'<figcaption style="font-size:0.75rem;color:#888;margin-top:6px;">'
+        f'Foto de <a href="{image["author_url"]}?utm_source=petaguia&utm_medium=referral" '
+        f'target="_blank" rel="noopener">{image["author"]}</a> en '
+        f'<a href="https://unsplash.com/?utm_source=petaguia&utm_medium=referral" '
+        f'target="_blank" rel="noopener">Unsplash</a>'
+        f'</figcaption></figure>'
+    )
+
+
 def generate_article(cat, topic):
     client = anthropic.Anthropic(api_key=API_KEY)
 
@@ -137,13 +214,11 @@ def generate_article(cat, topic):
     raw = message.content[0].text.strip()
     print(f"RAW API response (primeros 200 chars): {raw[:200]}")
 
-    # Limpiar bloques de código si los hay
     raw = re.sub(r"^```json\s*", "", raw, flags=re.MULTILINE)
     raw = re.sub(r"^```\s*", "", raw, flags=re.MULTILINE)
     raw = re.sub(r"```\s*$", "", raw, flags=re.MULTILINE)
     raw = raw.strip()
 
-    # Extraer el objeto JSON (desde { hasta el último })
     start = raw.find("{")
     end = raw.rfind("}") + 1
     if start == -1 or end == 0:
@@ -155,12 +230,12 @@ def generate_article(cat, topic):
 
 
 def _find_array_bounds(html):
-    """Encuentra los límites del array articles en el HTML usando conteo de corchetes."""
+    """Encuentra los límites del array articles usando conteo de corchetes."""
     match = re.search(r"const articles\s*=\s*\[", html)
     if not match:
         raise ValueError("No se encontró 'const articles = [' en el HTML")
 
-    bracket_start = match.end() - 1  # posición del [
+    bracket_start = match.end() - 1
     depth = 0
     in_string = False
     escape = False
@@ -191,14 +266,11 @@ def load_existing_articles(html):
     """Extrae el array articles del HTML de forma robusta."""
     _, bracket_start, bracket_end = _find_array_bounds(html)
     raw = html[bracket_start:bracket_end]
-
-    # Eliminar trailing commas (válidas en JS, inválidas en JSON)
     raw = re.sub(r',\s*([\]}])', r'\1', raw)
-
     try:
         return json.loads(raw)
     except json.JSONDecodeError as e:
-        print(f"ERROR al parsear articles. Primeros 500 chars del array:\n{raw[:500]}")
+        print(f"ERROR al parsear articles. Primeros 500 chars:\n{raw[:500]}")
         raise e
 
 
@@ -224,17 +296,29 @@ def main():
     cat, emoji, topic = pick_topic(existing_titles)
     print(f"Generando artículo sobre '{topic}' [{cat}]...")
 
+    # Buscar imagen en Unsplash
+    image = fetch_unsplash_image(cat, topic)
+    if image:
+        print(f"Imagen obtenida de Unsplash: {image['author']}")
+    else:
+        print("Sin imagen, se usará solo el emoji.")
+
+    # Generar contenido con IA
     new_data = generate_article(cat, topic)
 
+    # Insertar imagen al inicio del contenido
+    image_html = build_image_html(image)
+    content_with_image = image_html + new_data["content"]
+
     today = datetime.date.today()
-    months_es = ["enero","febrero","marzo","abril","mayo","junio",
-                 "julio","agosto","septiembre","octubre","noviembre","diciembre"]
-    date_str = f"{today.day} de {months_es[today.month-1]}, {today.year}"
+    months_es = ["enero", "febrero", "marzo", "abril", "mayo", "junio",
+                 "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+    date_str = f"{today.day} de {months_es[today.month - 1]}, {today.year}"
 
     max_id = max((a.get("id", 0) for a in articles), default=0)
 
     new_article = {
-        "id": max_id + 1,
+        "id":       max_id + 1,
         "title":    new_data["title"],
         "excerpt":  new_data["excerpt"],
         "category": cat,
@@ -242,15 +326,14 @@ def main():
         "date":     date_str,
         "readTime": str(new_data.get("readTime", "5")),
         "featured": False,
-        "content":  new_data["content"],
+        "image":    image["thumb"] if image else "",
+        "content":  content_with_image,
     }
 
-    # Insertar al inicio y marcar como featured
     articles.insert(0, new_article)
     for i, a in enumerate(articles):
         a["featured"] = (i == 0)
 
-    # Limitar cantidad
     if len(articles) > MAX_ARTICLES:
         articles = articles[:MAX_ARTICLES]
 
