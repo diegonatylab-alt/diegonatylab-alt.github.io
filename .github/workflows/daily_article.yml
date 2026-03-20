@@ -32,8 +32,10 @@ jobs:
 
       - name: Publicar cambios en GitHub
         run: |
-          git config user.name "PetaGuía Bot"
-          git config user.email "bot@petaguia.com"
-          git add index.html articulos/
+          git config user.name "PetsGuía Bot"
+          git config user.email "bot@petsguia.com"
+          git add index.html
+          git add articulos/ || true
           git diff --staged --quiet || git commit -m "🐾 Artículo del día $(date +'%Y-%m-%d')"
+          git push
           git push
