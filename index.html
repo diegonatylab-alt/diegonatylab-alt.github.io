@@ -947,7 +947,7 @@
       return '';
     }
 
-    // ── NAVIGATION ──
+        // ── NAVIGATION ──
     function openArticle(id) {
       const a = articles.find(x => x.id === id);
       if (!a) return;
@@ -959,7 +959,13 @@
       document.getElementById('art-date').textContent = '📅 ' + a.date;
       document.getElementById('art-read').textContent = '⏱ ' + a.readTime + ' min de lectura';
       document.getElementById('art-cat').textContent = a.emoji + ' ' + a.category;
-      document.getElementById('art-content').innerHTML = a.content;
+    
+      // Agregar imagen al inicio si existe y el contenido no la tiene ya
+      let contentHtml = a.content;
+      if (a.image && !contentHtml.includes('<figure')) {
+        contentHtml = `<figure style="margin:0 0 28px 0;"><img src="${a.image}" alt="${a.title}" style="width:100%;border-radius:10px;max-height:420px;object-fit:cover;" loading="lazy"/></figure>` + contentHtml;
+      }
+      document.getElementById('art-content').innerHTML = contentHtml;
       window.scrollTo(0, 0);
     }
 
