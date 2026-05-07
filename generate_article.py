@@ -44,80 +44,80 @@ CATEGORIES = [
 
 UNSPLASH_KEYWORDS = {
     "Perros":        "dog pet",
-    "Gatos":         "cat pet",
-    "Aves":          "pet bird parrot",
-    "Reptiles":      "reptile lizard pet",
-    "Exóticas":      "exotic pet rabbit hamster",
-    "Salud":         "veterinarian pet health",
-    "Alimentación":  "pet food dog cat",
+#    "Gatos":         "cat pet",
+#    "Aves":          "pet bird parrot",
+#    "Reptiles":      "reptile lizard pet",
+#    "Exóticas":      "exotic pet rabbit hamster",
+#    "Salud":         "veterinarian pet health",
+#    "Alimentación":  "pet food dog cat",
 }
 
 TOPIC_POOL = {
     "Perros": [
-        "razas ideales para departamento",
-        "cómo entrenar un cachorro en casa",
-        "señales de dolor en perros",
-        "qué vacunas necesita un perro cada año",
-        "cómo bañar a un perro correctamente",
-        "juegos para estimular mentalmente a tu perro",
-        "por qué los perros comen pasto",
-        "cuánto ejercicio necesita cada raza",
-        "qué significa el lenguaje corporal del perro",
-        "cómo cortar las uñas a un perro en casa",
+        "cuidados para la salud particular del bulldog frances"
+ #       "cómo entrenar un cachorro en casa",
+ #       "señales de dolor en perros",
+ #       "qué vacunas necesita un perro cada año",
+ #       "cómo bañar a un perro correctamente",
+ #       "juegos para estimular mentalmente a tu perro",
+ #       "por qué los perros comen pasto",
+ #       "cuánto ejercicio necesita cada raza",
+ #       "qué significa el lenguaje corporal del perro",
+ #       "cómo cortar las uñas a un perro en casa",
     ],
-    "Gatos": [
-        "por qué los gatos ronronean",
-        "cómo limpiar los ojos de un gato",
-        "razas de gatos hipoalergénicas",
-        "gatos de interior vs exterior pros y contras",
-        "cómo enriquecer el ambiente de un gato de interior",
-        "señales de estrés en gatos",
-        "cuántas veces al día debe comer un gato adulto",
-        "por qué mi gato me trae presas",
-        "cómo presentar a un gato nuevo en casa",
-        "enfermedades más comunes en gatos mayores",
-    ],
-    "Aves": [
-        "cómo saber si un loro está sano",
-        "qué frutas puede comer una cotorra",
-        "canarios cuidados básicos para principiantes",
-        "cómo enseñar a hablar a un loro",
-        "señales de enfermedad en aves de compañía",
-        "tamaño de jaula adecuado según la especie",
-        "periquitos australianos guía completa de cuidados",
-    ],
-    "Reptiles": [
-        "qué come una iguana doméstica",
-        "temperatura ideal para un terrario de serpientes",
-        "tortuga de tierra cuidados en el hogar",
-        "gecko leopardo como mascota guía para principiantes",
-        "señales de enfermedad en reptiles",
-        "dragons barbudos alimentación y hábitat",
-    ],
-    "Exóticas": [
-        "cómo cuidar un conejo enano",
-        "hámster vs cobayo cuál es mejor mascota",
-        "erizo africano es buena mascota",
-        "hurón doméstico todo lo que necesitás saber",
-        "peces betta cuidados en acuario",
-        "chinchillas como mascotas ventajas y desafíos",
-    ],
-    "Salud": [
-        "calendario de vacunación para perros y gatos",
-        "cómo detectar pulgas y garrapatas",
-        "primeros auxilios para mascotas",
-        "señales de alerta que requieren veterinario urgente",
-        "desparasitación cuándo y con qué frecuencia",
-        "enfermedades zoonóticas cuáles pueden contagiarse a humanos",
-    ],
-    "Alimentación": [
-        "alimentos tóxicos para perros que quizás no conocés",
-        "dieta BARF pros y contras según la ciencia",
-        "cómo leer la etiqueta de un alimento balanceado",
-        "cuánta agua debe beber una mascota al día",
-        "suplementos vitamínicos para mascotas cuándo son necesarios",
-        "alimentos caseros seguros para gatos",
-    ],
+ #   "Gatos": [
+ #       "por qué los gatos ronronean",
+ #       "cómo limpiar los ojos de un gato",
+ #       "razas de gatos hipoalergénicas",
+ #       "gatos de interior vs exterior pros y contras",
+ #       "cómo enriquecer el ambiente de un gato de interior",
+ #       "señales de estrés en gatos",
+ #       "cuántas veces al día debe comer un gato adulto",
+ #       "por qué mi gato me trae presas",
+ #       "cómo presentar a un gato nuevo en casa",
+ #       "enfermedades más comunes en gatos mayores",
+ #   ],
+ #   "Aves": [
+ #       "cómo saber si un loro está sano",
+ #       "qué frutas puede comer una cotorra",
+ #       "canarios cuidados básicos para principiantes",
+ #       "cómo enseñar a hablar a un loro",
+ #       "señales de enfermedad en aves de compañía",
+ #       "tamaño de jaula adecuado según la especie",
+ #       "periquitos australianos guía completa de cuidados",
+ #   ],
+ #   "Reptiles": [
+ #       "qué come una iguana doméstica",
+ #       "temperatura ideal para un terrario de serpientes",
+ #       "tortuga de tierra cuidados en el hogar",
+ #       "gecko leopardo como mascota guía para principiantes",
+ #       "señales de enfermedad en reptiles",
+ #       "dragons barbudos alimentación y hábitat",
+ #   ],
+ #   "Exóticas": [
+ #       "cómo cuidar un conejo enano",
+ #       "hámster vs cobayo cuál es mejor mascota",
+ #       "erizo africano es buena mascota",
+ #       "hurón doméstico todo lo que necesitás saber",
+ #       "peces betta cuidados en acuario",
+ #       "chinchillas como mascotas ventajas y desafíos",
+ #   ],
+ #   "Salud": [
+ #       "calendario de vacunación para perros y gatos",
+ #       "cómo detectar pulgas y garrapatas",
+ #       "primeros auxilios para mascotas",
+ #       "señales de alerta que requieren veterinario urgente",
+ #       "desparasitación cuándo y con qué frecuencia",
+ #       "enfermedades zoonóticas cuáles pueden contagiarse a humanos",
+ #   ],
+ #   "Alimentación": [
+ #       "alimentos tóxicos para perros que quizás no conocés",
+ #       "dieta BARF pros y contras según la ciencia",
+ #       "cómo leer la etiqueta de un alimento balanceado",
+ #       "cuánta agua debe beber una mascota al día",
+ #       "suplementos vitamínicos para mascotas cuándo son necesarios",
+ #       "alimentos caseros seguros para gatos",
+ #   ],
 }
 
 
@@ -227,7 +227,7 @@ def generate_article(cat, topic):
     client = anthropic.Anthropic(api_key=API_KEY)
 
     prompt = (
-        f'Eres un experto en SEO y mascotas. Escribí un artículo optimizado para Google en español '
+        f'Eres un experto en SEO, veterinaria y mascotas. Escribí un artículo optimizado para Google en español '
         f'sobre "{topic}" para la categoría "{cat}".\n\n'
         'REGLAS SEO OBLIGATORIAS:\n'
         '- El título debe comenzar con la keyword principal (ej: "Cómo bañar a un perro: guía paso a paso")\n'
@@ -236,7 +236,8 @@ def generate_article(cat, topic):
         '- Los subtítulos H2 deben ser preguntas o frases que la gente realmente busca en Google\n'
         '- El primer párrafo debe incluir la keyword principal en las primeras 100 palabras\n'
         '- Incluir al menos un H2 con formato "¿Por qué..." o "¿Cuándo..." o "¿Cómo..."\n'
-        '- El artículo debe tener mínimo 700 palabras para posicionar bien\n'
+        '- El artículo debe tener mínimo 1300 palabras para posicionar bien\n'
+        '- El artículo debe contener texto original, que parezca humano y no de IA, para ser aceptado por AdSense\n'
         '- Usar listas <ul> con al menos 4 ítems concretos y accionables\n'
         '- Terminar con un H2 de conclusión o llamado a la acción\n\n'
         'RESPONDE ÚNICAMENTE con JSON puro. Sin texto antes ni después. Sin bloques de código. '
@@ -244,8 +245,8 @@ def generate_article(cat, topic):
         'Estructura exacta (respeta las comillas dobles en todas las claves y valores):\n'
         '{"title":"Keyword principal al inicio, máx 60 caracteres",'
         '"excerpt":"Meta description con keyword, entre 120 y 155 caracteres, persuasiva",'
-        '"readTime":"6",'
-        '"content":"HTML del artículo con h2 p ul li. Mínimo 700 palabras. '
+        '"readTime":"8",'
+        '"content":"HTML del artículo con h2 p ul li. Mínimo 1300 palabras. '
         'Sin html body style. Las comillas dentro del HTML deben ser \\u0022 o evitadas."}'
     )
 
