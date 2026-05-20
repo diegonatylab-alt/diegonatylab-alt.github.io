@@ -1,6 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /privacidad.html
-Disallow: /aviso-legal.html
-
 Sitemap: https://petsguia.com/sitemap.xml
